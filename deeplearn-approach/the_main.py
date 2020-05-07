@@ -5,7 +5,7 @@ import numpy as np
 
 import tensorflow as tf
 
-from .cross_validation import model_eval
+from cross_validation import model_eval
 
 
 def plot_confusion_matrix(cm, classes,
@@ -42,7 +42,7 @@ def plot_confusion_matrix(cm, classes,
     plt.savefig('confusion.eps', format='eps', dpi=1000)
 
 
-def loaddata(WINDOW_SIZE):
+def loaddata(window_size):
     '''
         Load training/test data into workspace
 
@@ -61,15 +61,12 @@ def loaddata(WINDOW_SIZE):
 
     # Merging datasets
     # Case other sets are available, load them then concatenate
-    # y = np.concatenate((traintarget,augtarget),axis=0)
-    # X = np.concatenate((trainset,augset),axis=0)
+    # y = np.concatenate((traintarget, augtarget),axis=0)
+    # X = np.concatenate((trainset, augset),axis=0)
 
-    X = X[:, 0:WINDOW_SIZE]
+    # kind of duplicate work, but it can make sure that dimension matches
+    X = X[:, 0:window_size]
     return (X, y)
-
-#####################
-# Main function   ##
-###################
 
 
 if __name__ == "__main__":

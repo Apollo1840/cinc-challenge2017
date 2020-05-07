@@ -33,33 +33,20 @@ For more information visit: https://github.com/fernandoandreotti/cinc-challenge2
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import matplotlib.pyplot as plt
-import tensorflow as tf
+
 import numpy as np
-import scipy.io
-import gc
-import itertools
-from sklearn.metrics import confusion_matrix
 import sys
 sys.path.insert(0, './preparation')
 
-# Keras imports
-import keras
-from keras.models import Model
-from keras.layers import Input, Conv1D, Dense, Flatten, Dropout,MaxPooling1D, Activation, BatchNormalization
 from keras.callbacks import EarlyStopping, ModelCheckpoint
-from keras.utils import plot_model
 from keras import backend as K
 from keras.callbacks import Callback
 
 import warnings
 
-from .model import ResNet_model
+from model import ResNet_model
 
 
-###################################################################
-### Callback method for reducing learning rate during training  ###
-###################################################################
 class AdvancedLearnignRateScheduler(Callback):
     '''
    # Arguments
@@ -127,7 +114,7 @@ class AdvancedLearnignRateScheduler(Callback):
             self.wait += 1
 
 
-def model_train(X, y, window_size, Ntrain, Nsamp, epochs, batch, best_ckpt_filename):
+def model_train(X, y, window_size, test_ratio, epochs, batch, best_ckpt_filename):
 
     # Callbacks definition
     callbacks = [
@@ -142,7 +129,8 @@ def model_train(X, y, window_size, Ntrain, Nsamp, epochs, batch, best_ckpt_filen
     model = ResNet_model(window_size)
 
     # split train and validation sets
-    idxval = np.random.choice(Ntrain, Nsamp, replace=False)
+    # alternative way of using shuffle
+    idxval = np.random.choice(X.shape[0], int(X.shape[0] * test_ratio), replace=False)
     idxtrain = np.invert(np.in1d(range(X.shape[0]), idxval))
 
     ytrain = y[np.asarray(idxtrain), :]

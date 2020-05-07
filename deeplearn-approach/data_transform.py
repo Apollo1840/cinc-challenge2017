@@ -37,13 +37,15 @@ For more information visit: https://github.com/fernandoandreotti/cinc-challenge2
 
 import scipy.io
 import numpy as np
+import os
 import glob
 from tqdm import tqdm
 import csv
 
 # Parameters
-dataDir = '/some_path/'  # <---- change!!
-# dataDir = 'training2017/'
+input_data_dir = './some_path/'  # <---- change!!
+output_data_dir = './some_path/'
+
 FS = 300
 WINDOW_SIZE = 60*FS
 
@@ -133,15 +135,18 @@ def load_ann_from_dir(data_dir):
     csvfile = list(csv.reader(open(data_dir+'REFERENCE.csv')))
 
     traintarget = np.zeros((len(csvfile), 4))
-    classes = ['A','N','O','~']
+    classes = ['A', 'N', 'O', '~']
     for row in range(len(csvfile)):
         traintarget[row, classes.index(csvfile[row][1])] = 1
     return traintarget
 
 
 if __name__ == "__main__":
-    trainset = load_array_from_dir(dataDir, WINDOW_SIZE)
-    traintarget = load_ann_from_dir(dataDir)
+    trainset = load_array_from_dir(input_data_dir, WINDOW_SIZE)
+    traintarget = load_ann_from_dir(input_data_dir)
+
+    assert len(trainset) == len(traintarget)
 
     # Saving both
-    scipy.io.savemat('trainingset.mat', mdict={'trainset': trainset, 'traintarget': traintarget})
+    scipy.io.savemat(os.path.join(output_data_dir, 'trainingset.mat'),
+                     mdict={'trainset': trainset, 'traintarget': traintarget})

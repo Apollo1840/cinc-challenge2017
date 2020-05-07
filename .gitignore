@@ -1,3 +1,12 @@
+.idea/
+
+.bash_history
+.config/
+.cache/
+.ipython/
+.local/
+.python_history
+
 deeplearn-approach/.keras/
 deeplearn-approach/.config/
 deeplearn-approach/.cache/
@@ -6,13 +15,8 @@ deeplearn-approach/.local/
 deeplearn-approach/core
 deeplearn-approach/.python_history
 deeplearn-approach/.bash_history
-.bash_history
-.config/
-.cache/
-.ipython/
-.local/
-.python_history
+deeplearn-approach/data/*
 deeplearn-approach/__pycache__/
 deeplearn-approach/datatmp/
-featurebased-approach/preparing_entry/
 
+featurebased-approach/preparing_entry/
