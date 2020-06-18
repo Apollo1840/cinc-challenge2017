@@ -18,5 +18,7 @@ deeplearn-approach/.bash_history
 deeplearn-approach/data/*
 deeplearn-approach/__pycache__/
 deeplearn-approach/datatmp/
+deeplearn-approach/.ipynb_checkpoints/
+deeplearn-approach/trainingset.mat
 
 featurebased-approach/preparing_entry/

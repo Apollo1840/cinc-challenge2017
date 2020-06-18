@@ -127,6 +127,7 @@ def model_train(X, y, window_size, test_ratio, epochs, batch, best_ckpt_filename
     ]
     # Load model
     model = ResNet_model(window_size)
+    model.summary()
 
     # split train and validation sets
     # alternative way of using shuffle
